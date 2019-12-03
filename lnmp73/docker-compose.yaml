@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  fpm73:
+    build: ../php-fpm73
+    container_name: fpm73
+    volumes:
+      - /data/web:/data
+    expose:
+     - 9000
+
+  http:
+    container_name: http
+    build: ../nginx
+    ports:
+     - 80:80
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /data/wwwroot:/data
+      - /etc/nginx/conf.d:/etc/nginx/conf.d:rw
+  mysql:
+    build: ../mysql57
+    container_name: mysql
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Shanghai
+  redis:
+    build: ../redis
+    container_name: redis
+    expose:
+    - 6379
+    #ports:
+    # - 6379:6379
+    volumes:
+    - /var/lib/redis:/data
+    environment:
+    - TZ=Asia/Shanghai
+    sysctls:
+    - net.core.somaxconn=1024
+networks:
+  default:
+    external:
+      name: lzxyz-net
