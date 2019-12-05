@@ -4,7 +4,7 @@ services:
     build: ../php-fpm73
     container_name: fpm73
     volumes:
-      - /data/web:/data
+      - /data/wwwroot:/data
     expose:
      - 9000
 
