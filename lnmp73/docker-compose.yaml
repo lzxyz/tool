@@ -20,7 +20,11 @@ services:
       - /etc/nginx/conf.d:/etc/nginx/conf.d:rw
   mysql:
     build: ../mysql57
-    container_name: mysql
+    container_name: mysql 
+    expose:
+    - 3306
+    ports:
+     - 3306:3306
     volumes:
       - /data/mysql:/var/lib/mysql
     environment:

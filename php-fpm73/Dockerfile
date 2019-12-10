@@ -23,6 +23,9 @@ RUN wget https://pecl.php.net/get/mcrypt-${MCRYPT_VERSION}.tgz \
 	&& pecl install mcrypt-${MCRYPT_VERSION}.tgz \
 	&& docker-php-ext-enable mcrypt
 
+# PDO扩展
+RUN docker-php-ext-install pdo_mysql
+
 # composer工具
 RUN wget https://mirrors.aliyun.com/composer/composer.phar \
 	&& mv composer.phar /usr/local/bin/composer \
